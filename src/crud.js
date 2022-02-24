@@ -12,7 +12,7 @@ let american = [{id:1, name:'burgers', price:21},{id:2, name:'pizza rolls',price
 
 /// returns array of formatted strings[] (you choose what these look like)
 
-const about = mexican.map(function (foods) {
+const about = mexican.map((foods) => {
     return foods
 })
 
@@ -27,8 +27,11 @@ console.log(about)
 /// returns new array with food add
 
 const addFood1=(foods, food)=>{
+    american.push(...foods, []);
 
 }
+let food = [{id: 3, name: 'steak', price:30}]
+console.log(american)
 
 
 
@@ -79,7 +82,7 @@ const updateFood1=(foods, id, price)=>{
 
 /// returns new array with the food item updated with the id given
 
-const updateFood1=(foods, id, food)=>{
+const updateFood2=(foods, id, food)=>{
 
 
 
