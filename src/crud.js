@@ -12,15 +12,15 @@ let american = [{id:1, name:'burgers', price:21},{id:2, name:'pizza rolls',price
 
 /// returns array of formatted strings[] (you choose what these look like)
 
-//const foodToString = mexican.map((food) => {
-    //return `${food.name} is ${food.price} and the id is ${food.id}`
-//})
+const foodToString = (food) => {
+    return `${food.name} is $${food.price} and the id is ${food.id}`
+}
 
-//const about = (foods) => {
-    //return foods.map(foodToString)
-//}
+const about = (food) => {
+    return food.map(foodToString)
+}
 
-//console.log('about: return', about(mexican))
+console.log('about: return', about(mexican))
 
 // [...]
 
@@ -101,10 +101,15 @@ console.log('updateFood1: return', updateFood1(mexican, 1, 200))
 /// returns new array with the food item updated with the id given
 
 const updateFood2=(foods, id, food)=>{
-
-
-
+    return foods.map((foodElement) => {
+        if(foodElement.id === id) {
+            return food
+        }
+        return foodElement
+    })
 }
+
+console.log('updateFood2: return', updateFood2(mexican, 1, {id: 12, name: 'burrito', price: 24}))
 
 
 
@@ -115,13 +120,15 @@ const updateFood2=(foods, id, food)=>{
 // id:number,
 
 // removes the food with the given the id
-
-const deleteFood1 = (foods,id)=>{
-
-
-
-
+const idMatch = (food, id) => {
+    return food.id !== id
 }
+
+const deleteFood1 = (foods,id) => {
+    return foods.filter((t) => t.id !== id)
+}
+
+console.log('deleteFood1: return', deleteFood1(mexican, 1))
 
 
 
@@ -132,9 +139,17 @@ const deleteFood1 = (foods,id)=>{
 // price:number,
 
 // removes the food with price over price given
+const isOverPriced = (food, price) => food.price <= price
 
-const deleteFood2 = (foods,price)=>{
+console.log('isOverPriced', isOverPriced({book: 'dune', price: 100}, 10))
+console.log('isOverPriced', isOverPriced({name: 'taco', price: 10}, 10))
 
+const deleteFood2 = (foods,price) => {
+    return foods.filter((food) => {
+        return isOverPriced(food, price)
+    })
+}
 
-
+const deleteFood2a = (foods, price) => {
+    return foods.filter((food) => food.price <= price)
 }
