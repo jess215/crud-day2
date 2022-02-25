@@ -12,11 +12,15 @@ let american = [{id:1, name:'burgers', price:21},{id:2, name:'pizza rolls',price
 
 /// returns array of formatted strings[] (you choose what these look like)
 
-const about = mexican.map((foods) => {
-    return foods
-})
+//const foodToString = mexican.map((food) => {
+    //return `${food.name} is ${food.price} and the id is ${food.id}`
+//})
 
-console.log(about)
+//const about = (foods) => {
+    //return foods.map(foodToString)
+//}
+
+//console.log('about: return', about(mexican))
 
 // [...]
 
@@ -27,11 +31,10 @@ console.log(about)
 /// returns new array with food add
 
 const addFood1=(foods, food)=>{
-    american.push(...foods, []);
+    return [...foods, food]
 
 }
-let food = [{id: 3, name: 'steak', price:30}]
-console.log(american)
+console.log('addFood1: return', addFood1(mexican, {id:3, price:20, name:'tacos'}))
 
 
 
@@ -48,10 +51,11 @@ console.log(american)
 /// returns new array with food add
 
 const addFood2 = (foods, id,name,price)=>{
+    return [...foods, {id:id, name:name, price:price}]
 
 }
 
-
+console.log('addFood2: return', addFood2(mexican, 3, 'tacos', 20))
 
 
 //MAP
@@ -64,13 +68,27 @@ const addFood2 = (foods, id,name,price)=>{
 
 /// returns new array with the price updated with the id given
 
-const updateFood1=(foods, id, price)=>{
+const updateFoodPrice =(food, id, price) => {
+    if(food.id === id){
+        return{...food, price:price}
+    }
+    return food
+}
+console.log(updateFoodPrice({id:1, name:'fish', price:10}, 1, 100))
+console.log(updateFoodPrice({id:0, name:'pizza', price:10}, 99, 100))
 
- // Update - Map
+const updateFood1=(foods, id, price)=>{
+    console.log('foods:', foods)
+    console.log('id:', id)
+    console.log('price:', price)
+    if(foods.id === id){
+        return {...foods, price:price}
+    }
+    return foods.map(updateFoodPrice)
 
 }
 
-
+console.log('updateFood1: return', updateFood1(mexican, 1, 200))
 
 //MAP
 
