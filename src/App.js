@@ -3,6 +3,7 @@ import './App.css';
 import {useState} from 'react'
 import axios from "axios";
 import User from "./Users";
+import NewUser from "./NewUser"
 
 function App() {
   const [users, setUsers] = useState([])
@@ -13,7 +14,7 @@ function App() {
     setLoading(true)
     setError(null)
     axios
-      .get("https://reqres.in/api/users?delay=3")
+      .get("https://reqres.in/api/users?delay=1")
       .then((res) => {
         console.log('res:', res)
         console.log('res.data', res.data)
@@ -27,18 +28,44 @@ function App() {
       })
   }
 
+  const addUser = (user) => {
+    let newUsers = [user, ...users]
+    setUsers(newUsers)
+  }
+
   const deleteUser = (id) => {
     console.log('in app js')
-    console.log(id)
+    console.log('deleting item with id:', id)
 
     let newUsers = users.filter(u => u.id !==id)
+    setUsers(newUsers)
+  }
+
+  const updateUser = (user) => {
+    console.log('in app.js user is:', user)
+    let updatedUsers = users.map(u => {
+      if(u.id === user.id){
+        return user
+      }
+      return u
+    })
+    setUsers(updatedUsers)
+  }
+
+  const renderUsers = () => {
+    return users.map((user) => {
+      return <User key={user.id} {...user} updateUser={updateUser} deleteUser={() => deleteUser(user.id)} />
+    })
   }
 
   return (
-    <div className="App">
-      <h1>Boop</h1>
+    <div className="App" style={{ border: '5px solid black', margin: '10px', padding: '10px' }}>
+      <h1>User List</h1>
+      <NewUser addUserCB={addUser}/>
       <button disabled={loading} onClick={getUsers}>{loading ? 'loading':'get users'}</button>
-      <div>{users.map((u) => <User key={u.id} {...u} deleteUser={deleteUser}/>)}</div>
+      <div>{renderUsers()}</div>
+      <hr />
+      <h1>What our 'users' state looks like</h1>
       <div>{JSON.stringify(users)}</div>
 
       {error && <p style={{color: 'red'}}>ERROR: {error}</p>}

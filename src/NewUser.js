@@ -2,6 +2,7 @@ import { useState } from 'react'
 const NewUser = (props) => {
     const [email, setEmail] = useState('')
     const [first_name, set_first_name] = useState('')
+    const [lastName, setLastName] = useState('')
     const [foo, bar] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -9,7 +10,7 @@ const NewUser = (props) => {
         console.log('email input value', email)
         console.log('first name value', foo)
 
-        let newUser = {id: Math.rancdom(), first_name, last_name: lastName, avatar: foo, email}
+        let newUser = {id: Math.random(), first_name, last_name: lastName, avatar: foo, email}
         console.log(newUser)
 
         props.addUserCB(newUser)
